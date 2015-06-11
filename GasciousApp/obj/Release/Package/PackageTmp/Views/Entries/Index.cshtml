@@ -1,0 +1,180 @@
+﻿@model IEnumerable<GasciousApp.Models.Entry>
+
+@{
+    ViewBag.Title = "Analysis";
+    Dictionary<string, decimal> VehicleTotalPrices  = ViewBag.VehicleTotalPrices    as Dictionary<string, decimal>;
+    Dictionary<string, decimal> VehicleAvgPrices    = ViewBag.VehicleAvgPrices      as Dictionary<string, decimal>;
+    Dictionary<string, decimal> VehicleAvgMiles     = ViewBag.VehicleAvgMiles       as Dictionary<string, decimal>;
+    Dictionary<string, decimal> VehicleDPM          = ViewBag.VehicleDPM            as Dictionary<string, decimal>;
+    Dictionary<string, decimal> VehicleMinMiles     = ViewBag.VehicleMinMiles       as Dictionary<string, decimal>;
+    Dictionary<string, decimal> VehicleMaxMiles     = ViewBag.VehicleMaxMiles       as Dictionary<string, decimal>;
+    
+    Dictionary<string, decimal> StationTotalPrices  = ViewBag.StationTotalPrices    as Dictionary<string, decimal>;
+    Dictionary<string, decimal> StationAvgPrices    = ViewBag.StationAvgPrices      as Dictionary<string, decimal>;
+    Dictionary<string, decimal> StationDPG          = ViewBag.StationDPG            as Dictionary<string, decimal>;
+    int i = 0;
+
+    if (VehicleTotalPrices.Count == 0)
+    {
+        Response.Redirect("~/Entries/Create");
+    }    
+}
+
+
+<h1>Analysis</h1>
+
+
+<hr />
+
+<h2>By Vehicle</h2>
+
+<!-- ROW for total cost per vehicle -->
+<div class="row">
+    <div class="col-md-6">
+        <div id="graph-total-price">Loading graph...</div>
+        <script type="text/javascript">var myData = [];</script> <!-- ARRAY for graph data -->
+        @{
+            foreach (KeyValuePair<string, decimal> item in VehicleTotalPrices)
+            {
+                <script type="text/javascript">
+                    myData.push(['@item.Key', @item.Value]);
+                </script>
+            }
+            i++;
+        }
+        <script type="text/javascript">
+            buildPieChart("graph-total-price", "Total Cost to Fillup", myData);
+        </script>
+    </div> <!-- END COLUMN -->
+    <!-- COLUMN for avg cost per car -->
+    <div class="col-md-6 col-lg-4">
+        <div id="graph-avg-vehicle">Loading graph...</div>
+        <script type="text/javascript">myData = [];</script>
+        @{
+            foreach (KeyValuePair<string, decimal> item in VehicleAvgPrices)
+            {
+                <script type="text/javascript">
+                    myData.push(['@item.Key', @item.Value]);
+                </script>
+            }
+            i++;
+        }
+        <script type="text/javascript">
+            buildBarChart("graph-avg-vehicle", "Average Cost Per Fillup", myData);
+        </script>
+    </div> <!-- END COLUMN -->
+
+    <!-- COLUMN for avg cost per car -->
+    <div class="col-md-6">
+        <div id="graph-avg-miles">Loading graph...</div>
+        <script type="text/javascript">myData = [];</script>
+        @{
+            foreach (KeyValuePair<string, decimal> item in VehicleAvgMiles)
+            {
+                <script type="text/javascript">
+                    myData.push(['@item.Key', @item.Value]);
+                </script>
+            }
+            i++;
+        }
+        <script type="text/javascript">
+            buildBarChart("graph-avg-miles", "Average Miles Between Fillups", myData);
+        </script>
+    </div> <!-- END COLUMN -->
+
+    <!-- COLUMN for avg cost per car -->
+    <div class="col-md-6">
+        <div id="graph-dpm-vehicle">Loading graph...</div>
+        <script type="text/javascript">myData = [];</script>
+        @{
+            foreach (KeyValuePair<string, decimal> item in VehicleDPM)
+            {
+                <script type="text/javascript">
+                    myData.push(['@item.Key', @item.Value]);
+                </script>
+            }
+            i++;
+        }
+        <script type="text/javascript">
+            buildBarChart("graph-dpm-vehicle", "Average Cost Per Mile", myData);
+        </script>
+    </div> <!-- END COLUMN -->
+
+    <!-- COLUMN for delta trip length per car -->
+    <div class="col-md-6">
+        <div id="graph-delta-vehicle">Loading graph...</div>
+        <script type="text/javascript">myData = [];</script>
+        @{
+            foreach (KeyValuePair<string, decimal> item in VehicleMinMiles)
+            {
+                decimal Delta = VehicleMaxMiles[item.Key] - VehicleMinMiles[item.Key]; 
+                <script type="text/javascript">
+                    myData.push(['@item.Key', @Delta]);
+                </script>
+            }
+            i++;
+        }
+        <script type="text/javascript">
+            buildBarChart("graph-delta-vehicle", "Delta Mileage Per Tank", myData);
+        </script>
+    </div> <!-- END COLUMN -->
+</div> <!-- END ROW -->
+
+<h2>By Station</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <!-- COLUMN for each station -->
+        <div id="graph-total-station">Loading graph...</div>
+        <script type="text/javascript">myData = [];</script>
+        @{
+            foreach (KeyValuePair<string, decimal> item in StationTotalPrices)
+            {
+                <script type="text/javascript">
+                    myData.push(['@item.Key', @item.Value]);
+                </script>
+            }
+            i++;
+        }
+        <script type="text/javascript">
+            buildPieChart("graph-total-station", "Total Spent at Each Station", myData);
+        </script>
+    </div> <!-- END COLUMN -->
+
+    <div class="col-md-6">
+        <!-- COLUMN for avg per station -->
+        <div id="graph-avg-station">Loading graph...</div>
+        <script type="text/javascript">myData = [];</script>
+        @{
+            foreach (KeyValuePair<string, decimal> item in StationAvgPrices)
+            {
+                <script type="text/javascript">
+                    myData.push(['@item.Key', @item.Value]);
+                </script>
+            }
+            i++;
+        }
+        <script type="text/javascript">
+            buildBarChart("graph-avg-station", "Average Cost Per Visit", myData);
+        </script>
+    </div> <!-- END COLUMN -->
+</div> <!-- END ROW -->
+
+<div class="row">
+    <div class="col-md-6"> <!-- COLUMN for avg price per gallon-->
+        <div id="graph-dpg-station">Loading graph...</div>
+        <script type="text/javascript">myData = [];</script>
+        @{
+            foreach (KeyValuePair<string, decimal> item in StationDPG)
+            {
+                <script type="text/javascript">
+                    myData.push(['@item.Key', @item.Value]);
+                </script>
+            }
+            i++;
+        }
+        <script type="text/javascript">
+            buildBarChart("graph-dpg-station", "Average Cost Per Gallon", myData);
+        </script>
+    </div>
+</div>

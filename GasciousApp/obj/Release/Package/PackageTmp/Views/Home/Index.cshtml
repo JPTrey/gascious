@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<br/>
+<div class="row">
+    <div class="col-sm-5 col-sm-offset-1">
+        <h2 class="text-center project-title">Gascious</h2>
+        <h3 class="text-center project-tagline">For the gas-conscious.</h3>
+        <p class="text-center project-info">
+            Track gas prices and engine effiency with Gascious,
+            the free gas log service that stores and analyses prices and mileage across vehicles, stations, and seasons.
+        </p>
+    </div>
+    <div class="col-sm-5 col-sm-offset-1">
+        <img class="img img-responsive thumbnail" src="/Content/gascious-pic.PNG" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2 class="text-center">Free to Use. Period.</h2>
+        <p class="text-center">Gascious is free to use, and always will be.  We do not collect cookies or private information.</p>
+        <p class="text-center">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-6">
+        <h2 class="text-center">Always Available, On Any Device</h2>
+        <p class="text-center">Already registered? You can login from either your desktop and portable devices.</p>
+        <p class="text-center">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-default" })</p>
+    </div>
+</div>

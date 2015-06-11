@@ -1,0 +1,73 @@
+﻿@model IEnumerable<GasciousApp.Models.Entry>
+
+@{
+    ViewBag.Title = "Manage";
+    if (ViewBag.HasEntries == "false")
+    {
+        <h2>You haven't started logging yet. @Html.ActionLink("Click to get started", "Create")</h2>
+    }
+    else { 
+<h2>Manage Entries</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gallons)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Station)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vehicle)
+        </th>
+        <th>
+            Length (Mi)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (ViewBag.Username == item.Username)
+        {
+            <tr>
+                <td>
+                    @item.Date.Month/@item.Date.Day/@item.Date.Year
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gallons)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Station)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vehicle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Miles)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+}
+
+}

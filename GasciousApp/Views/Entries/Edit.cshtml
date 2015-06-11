@@ -1,0 +1,158 @@
+﻿@model GasciousApp.Models.Entry
+
+@{
+    ViewBag.Title = "Edit";
+    List<string> VehicleList = ViewBag.VehicleList;
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Entry</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gallons, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Gallons, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Gallons, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Station, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(
+            model => model.Station,
+            new SelectList(
+                new List<object>
+                {
+                    new { value = "Amoco", text = "Amoco"},
+                    new { value = "ARCO", text = "ARCO" },
+                    new { value = "BP", text = "BP"},
+                    new { value = "Buc-ee", text = "Buc-ee's"},
+                    new { value = "Chevron", text = "Chevron"},
+                    new { value = "Circle", text = "Circle K"},
+                    new { value = "Citgo", text = "Citgo"},
+                    new { value = "Clark", text = "Clark Brands"},
+                    new { value = "Conoco", text = "Conoco"},
+                    new { value = "Cumberland", text = "Cumberland Farms"},
+                    new { value = "Delta", text = "Delta Sonic"},
+                    new { value = "Exxon", text = "Exxon"},
+                    new { value = "FlyingJ", text = "Flying J"},
+                    new { value = "GasCity", text = "Gas City, Ltd."},
+                    new { value = "Getty", text = "Getty"},
+                    new { value = "Gulf", text = "Gulf"},
+                    new { value = "Hess", text = "Hess"},
+                    new { value = "High", text = "High's Dairy Stores"},
+                    new { value = "Holiday", text = "Holiday"},
+                    new { value = "Irving", text = "Irving Oil"},
+                    new { value = "Kroger", text = "Kroger brand gasoline"},
+                    new { value = "KG", text = "Kum & Go"},
+                    new { value = "Kwik", text = "Kwik Trip"},
+                    new { value = "Love", text = "Love's"},
+                    new { value = "Lukoil", text = "Lukoil"},
+                    new { value = "Marathon", text = "Marathon Oil"},
+                    new { value = "Mobil", text = "Mobil"},
+                    new { value = "Murphy", text = "Murphy USA"},
+                    new { value = "Phillips", text = "Phillips 66"},
+                    new { value = "Pilot", text = "Pilot"},
+                    new { value = "QuickChek", text = "QuickChek"},
+                    new { value = "QuikTrip", text = "QuikTrip"},
+                    new { value = "RaceTrac", text = "RaceTrac/Raceway"},
+                    new { value = "Shell", text = "Shell"},
+                    new { value = "Royal", text = "Royal Farms"},
+                    new { value = "Rutter", text = "Rutter's Farm Stores"},
+                    new { value = "711", text = "7-Eleven brand gasoline"},
+                    new { value = "76", text = "76"},
+                    new { value = "Sam", text = "Sam's Club"},
+                    new { value = "Sheetz", text = "Sheetz"},
+                    new { value = "Sinclair", text = "Sinclair"},
+                    new { value = "Speedway", text = "Speedway"},
+                    new { value = "Spinx", text = "Spinx"},
+                    new { value = "Sunoco", text = "Sunoco"},
+                    new { value = "Texaco", text = "Texaco"},
+                    new { value = "Travelcenters", text = "Travelcenters of America"},
+                    new { value = "Valero", text = "Valero"},
+                    new { value = "Wawa", text = "Wawa"}
+                },
+                "value",
+                "text")
+        )
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vehicle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @if (VehicleList.Count() > 0)
+                {
+                    <h5>Choose existing: </h5>
+                    <select name="vehicle-existing">
+                        @foreach (var item in VehicleList)
+                        {
+                            <option value="@item.ToString()">@item</option>
+                        }
+                    </select>
+                    <h5>or change to:</h5>
+                }
+                @Html.EditorFor(model => model.Vehicle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vehicle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Miles, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Miles, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Miles, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group hidden">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Manage")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

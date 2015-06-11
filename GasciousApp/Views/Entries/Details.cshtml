@@ -1,0 +1,66 @@
+﻿@model GasciousApp.Models.Entry
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Entry</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Date
+        </dt>
+
+        <dd>
+            @Model.Date.Month/@Model.Date.Day/@Model.Date.Year
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gallons)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gallons)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Station)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Station)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vehicle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vehicle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Miles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Miles)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Manage")
+</p>
